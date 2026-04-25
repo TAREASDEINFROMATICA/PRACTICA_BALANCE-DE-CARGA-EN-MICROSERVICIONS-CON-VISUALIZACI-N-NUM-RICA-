@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650">
+<rect width="1200" height="650" fill="#f8fafc"/>
+<text x="60" y="80" font-size="38" font-family="Arial" fill="#0f172a" font-weight="700">Método de Gauss-Seidel</text>
+<text x="60" y="120" font-size="22" font-family="Arial" fill="#475569">Usa inmediatamente cada valor nuevo para acelerar la aproximación</text>
+<rect x="120" y="220" width="240" height="120" rx="18" fill="#dbeafe" stroke="#2563eb" stroke-width="4"/>
+<rect x="480" y="220" width="240" height="120" rx="18" fill="#dcfce7" stroke="#16a34a" stroke-width="4"/>
+<rect x="840" y="220" width="240" height="120" rx="18" fill="#fef3c7" stroke="#f59e0b" stroke-width="4"/>
+<text x="180" y="292" font-size="32" font-family="Arial" fill="#1d4ed8" font-weight="700">Actualizar x1</text>
+<text x="540" y="292" font-size="32" font-family="Arial" fill="#15803d" font-weight="700">Usar x1 nuevo</text>
+<text x="900" y="292" font-size="32" font-family="Arial" fill="#b45309" font-weight="700">Actualizar x2, x3</text>
+<path d="M360 280 C410 260, 430 260, 480 280" stroke="#38bdf8" stroke-width="8" fill="none"/>
+<polygon points="466,265 490,280 466,295" fill="#38bdf8"/>
+<path d="M720 280 C770 260, 790 260, 840 280" stroke="#22c55e" stroke-width="8" fill="none"/>
+<polygon points="826,265 850,280 826,295" fill="#22c55e"/>
+<text x="330" y="480" font-size="28" font-family="Arial" fill="#334155">Iteración secuencial</text>
+<text x="300" y="530" font-size="22" font-family="Arial" fill="#64748b">Generalmente converge más rápido que Jacobi</text>
+</svg>

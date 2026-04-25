@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comparación y condicionamiento</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header>
+  <div class="container">
+    <div class="container">Ronaldo Charca Condori</div>
+    <div class="topbar">
+      <div class="brand">Comparación de métodos y condicionamiento</div>
+      <nav>
+        <a href="index.html">Inicio</a>
+        <a href="lu.html">LU</a>
+        <a href="jacobi.html">Jacobi</a>
+        <a href="gauss-seidel.html">Gauss-Seidel</a>
+        <a href="sor.html">SOR</a>
+        <a href="gradiente.html">Gradiente</a>
+        <a href="comparacion.html">Comparación</a>
+      </nav>
+    </div>
+
+    <div class="hero" style="margin-top:18px">
+      <h1>Balance de carga en microservicios mediante métodos numéricos</h1>
+      <p>
+        Se presenta el análisis comparativo entre los cinco métodos
+        utilizados en el proyecto: factorización LU, Jacobi, Gauss-Seidel, SOR y
+        Gradiente Conjugado Precondicionado. Además, se explica el papel del
+        condicionamiento del sistema en la estabilidad, precisión y velocidad de
+        convergencia de cada técnica numérica aplicada al balance de carga en
+        microservicios.
+      </p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+
+    <section class="card">
+      <h2 class="section-title">1. Contexto general del análisis</h2>
+      <p>
+        El problema planteado modela la distribución de solicitudes entre tres
+        microservicios principales: autenticación, catálogo y pagos. Cada variable
+        representa la carga efectiva de uno de estos servicios, mientras que el
+        vector de términos independientes representa la demanda neta que el sistema
+        debe absorber. A partir de este modelo, se estudian tres escenarios:
+        un caso ideal, un caso bajo estrés y un caso mal condicionado.
+      </p>
+      <p>
+        El objetivo del análisis no consiste únicamente en encontrar la solución
+        del sistema, sino en observar cómo responde cada método numérico ante
+        distintos niveles de dificultad. De esta manera, la comparación permite
+        evaluar estabilidad, rapidez, sensibilidad numérica y utilidad práctica
+        dentro del contexto de microservicios.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2 class="section-title">2. Explicación del condicionamiento</h2>
+      <p>
+        El condicionamiento de un sistema de ecuaciones lineales describe qué tan
+        sensible es la solución frente a pequeñas variaciones en los datos del
+        problema. Si la matriz del sistema está bien condicionada, entonces una
+        pequeña modificación en los coeficientes o en el vector independiente
+        produce solamente una pequeña variación en la solución. En cambio, si la
+        matriz está mal condicionada, una alteración mínima puede provocar cambios
+        importantes en el resultado.
+      </p>
+      <p>
+        En este proyecto, el condicionamiento es importante porque el comportamiento
+        de los métodos numéricos depende directamente de la estructura de la matriz.
+        En el caso ideal, la matriz es estable, diagonalmente dominante y fácil de
+        resolver. En el caso bajo estrés, aunque la magnitud de los coeficientes
+        aumenta, el sistema todavía puede resolverse con relativa estabilidad. Sin
+        embargo, en el caso mal condicionado, las ecuaciones se vuelven muy
+        parecidas entre sí, lo que genera hiperplanos casi paralelos y vuelve más
+        delicada la convergencia de los métodos iterativos.
+      </p>
+      <p>
+        Desde el punto de vista del balance de carga en microservicios, esto puede
+        interpretarse como una situación en la que varios servicios parecen responder
+        de manera casi idéntica frente a la carga del sistema. Cuando eso ocurre,
+        distinguir numéricamente el aporte real de cada microservicio se vuelve más
+        difícil, y por eso algunos algoritmos necesitan más iteraciones o incluso
+        pueden perder estabilidad.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2 class="section-title">3. Comparación de los cinco métodos</h2>
+
+      <div class="result-box" style="margin-top:12px">
+        <strong>LU</strong>
+        <p>
+          La factorización LU es un método directo, lo cual significa que no depende
+          de iteraciones sucesivas para llegar a la solución. Su principal ventaja
+          es que proporciona una referencia confiable y precisa para validar el
+          comportamiento de los demás métodos. Dentro del proyecto, LU se aplicó
+          mediante las variantes Doolittle, Crout y Cholesky. En general, LU se
+          comporta muy bien en el caso ideal y en el caso bajo estrés, ya que puede
+          resolver el sistema con estabilidad y sin necesidad de procesos repetitivos.
+          En el caso mal condicionado también produce una solución, pero la precisión
+          numérica puede depender más de la estructura específica de la matriz.
+        </p>
+      </div>
+
+      <div class="result-box" style="margin-top:12px">
+        <strong>Jacobi</strong>
+        <p>
+          Jacobi es uno de los métodos iterativos clásicos más sencillos. Su lógica
+          consiste en actualizar todas las variables a partir de los valores de la
+          iteración anterior. Esta simplicidad lo hace fácil de implementar, pero
+          también provoca que normalmente sea más lento que otros métodos. En el
+          caso ideal suele converger correctamente, aunque con un número de
+          iteraciones mayor. En el caso bajo estrés todavía puede converger, pero
+          requiere más esfuerzo computacional. En el caso mal condicionado es el
+          método más vulnerable, porque puede volverse muy lento o incluso no llegar
+          a una convergencia aceptable dentro del número de iteraciones fijado.
+        </p>
+      </div>
+
+      <div class="result-box" style="margin-top:12px">
+        <strong>Gauss-Seidel</strong>
+        <p>
+          Gauss-Seidel mejora a Jacobi porque utiliza inmediatamente los valores
+          recién calculados dentro de la misma iteración. Gracias a eso, normalmente
+          alcanza la solución más rápido. En el caso ideal suele converger con menos
+          iteraciones que Jacobi. En el caso bajo estrés sigue ofreciendo un
+          comportamiento razonable y muestra mejor desempeño que Jacobi. En el caso
+          mal condicionado todavía puede converger, pero se vuelve más lento y
+          sensible, lo que evidencia el efecto del condicionamiento sobre los métodos
+          iterativos clásicos.
+        </p>
+      </div>
+
+      <div class="result-box" style="margin-top:12px">
+        <strong>SOR</strong>
+        <p>
+          El método SOR puede entenderse como una extensión de Gauss-Seidel que
+          incorpora un parámetro de relajación ω. Este parámetro permite acelerar la
+          convergencia cuando se elige adecuadamente. En el caso ideal, SOR suele ser
+          más eficiente que Jacobi y Gauss-Seidel. En el caso bajo estrés conserva un
+          buen rendimiento y normalmente sigue siendo competitivo. En el caso mal
+          condicionado, aunque no elimina completamente la dificultad numérica, suele
+          comportarse mejor que Jacobi y en muchos casos también mejor que
+          Gauss-Seidel, siempre que el valor de ω sea conveniente.
+        </p>
+      </div>
+
+      <div class="result-box" style="margin-top:12px">
+        <strong>Gradiente Conjugado Precondicionado</strong>
+        <p>
+          El Gradiente Conjugado Precondicionado es el método avanzado del proyecto.
+          Está diseñado para trabajar eficientemente con matrices simétricas definidas
+          positivas y aprovecha un precondicionador para reducir la dificultad del
+          problema. En el caso ideal ofrece una convergencia muy rápida. En el caso
+          bajo estrés también mantiene un desempeño sólido. En el caso mal
+          condicionado destaca por ser mucho más robusto que Jacobi y Gauss-Seidel,
+          ya que el precondicionamiento ayuda a estabilizar el proceso iterativo. Por
+          ello, dentro del conjunto de métodos estudiados, es uno de los más fuertes
+          cuando el sistema se vuelve difícil.
+        </p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="section-title">4. Comparación por escenarios</h2>
+
+      <h3>Caso ideal</h3>
+      <p>
+        En el caso ideal, todos los métodos tienden a comportarse de manera favorable.
+        LU ofrece la solución directa y sirve como valor de referencia. Jacobi
+        converge, pero lo hace más lentamente. Gauss-Seidel mejora el número de
+        iteraciones respecto a Jacobi. SOR puede reducir aún más ese número cuando
+        se ajusta bien el parámetro de relajación. El Gradiente Conjugado
+        Precondicionado muestra una convergencia muy rápida y estable. En este
+        escenario, el condicionamiento es bueno y por eso casi todos los métodos
+        funcionan correctamente.
+      </p>
+
+      <h3>Caso bajo estrés</h3>
+      <p>
+        En el caso bajo estrés, la magnitud de los coeficientes aumenta y el sistema
+        representa una arquitectura con mayor presión de tráfico y dependencias más
+        intensas entre microservicios. LU sigue siendo una opción sólida porque no
+        depende de iteraciones. Jacobi todavía puede resolver el sistema, pero
+        requiere más pasos y se vuelve menos eficiente. Gauss-Seidel mantiene mejor
+        comportamiento que Jacobi. SOR conserva su ventaja cuando el parámetro ω
+        ayuda a acelerar la aproximación. El Gradiente Conjugado Precondicionado se
+        mantiene como un método muy competitivo, especialmente por su rapidez y
+        robustez.
+      </p>
+
+      <h3>Caso mal condicionado</h3>
+      <p>
+        En el caso mal condicionado se observa con mayor claridad la diferencia entre
+        los métodos. LU sigue proporcionando una solución de referencia, aunque la
+        sensibilidad numérica del sistema sigue presente. Jacobi es el más afectado,
+        ya que puede volverse demasiado lento o incluso no converger en condiciones
+        prácticas. Gauss-Seidel ofrece una mejora respecto a Jacobi, pero también se
+        ve afectado por la cercanía entre las ecuaciones. SOR puede responder mejor,
+        aunque no deja de depender del ajuste adecuado de ω. El Gradiente Conjugado
+        Precondicionado se posiciona como la alternativa más robusta entre los
+        iterativos, porque su estructura matemática está mejor preparada para
+        enfrentar sistemas exigentes.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2 class="section-title">5. Tabla comparativa general</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Método</th>
+              <th>Caso ideal</th>
+              <th>Caso bajo estrés</th>
+              <th>Caso mal condicionado</th>
+              <th>Comentario general</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>LU</td>
+              <td>Muy bueno</td>
+              <td>Muy bueno</td>
+              <td>Bueno</td>
+              <td>Método directo, útil como referencia exacta.</td>
+            </tr>
+            <tr>
+              <td>Jacobi</td>
+              <td>Aceptable</td>
+              <td>Regular</td>
+              <td>Débil</td>
+              <td>Sencillo, pero lento y sensible al mal condicionamiento.</td>
+            </tr>
+            <tr>
+              <td>Gauss-Seidel</td>
+              <td>Bueno</td>
+              <td>Bueno</td>
+              <td>Regular</td>
+              <td>Mejor que Jacobi por su actualización inmediata.</td>
+            </tr>
+            <tr>
+              <td>SOR</td>
+              <td>Muy bueno</td>
+              <td>Bueno</td>
+              <td>Bueno</td>
+              <td>Depende del parámetro ω, pero puede acelerar bastante.</td>
+            </tr>
+            <tr>
+              <td>Gradiente Conjugado Prec.</td>
+              <td>Excelente</td>
+              <td>Excelente</td>
+              <td>Muy bueno</td>
+              <td>Rápido y robusto, especialmente en sistemas difíciles.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="section-title">6. Conclusión del análisis comparativo</h2>
+      <p>
+        El condicionamiento del sistema influye directamente en el rendimiento de los
+        métodos numéricos. Cuando el sistema está bien condicionado, casi todos los
+        métodos funcionan correctamente, aunque con diferencias de velocidad. A
+        medida que el problema se vuelve más exigente, esas diferencias se hacen más
+        visibles. Jacobi resulta ser el más sensible al mal condicionamiento,
+        Gauss-Seidel mejora el comportamiento, SOR ofrece una aceleración útil y el
+        Gradiente Conjugado Precondicionado destaca por su robustez.
+      </p>
+      <p>
+        Por su parte, LU cumple un papel fundamental como método directo de
+        referencia, ya que proporciona una solución precisa con la cual se pueden
+        contrastar los resultados iterativos. En conjunto, la comparación demuestra
+        que no existe un único método universalmente mejor para todos los escenarios,
+        sino que la elección depende del tipo de sistema, de su condicionamiento y de
+        los objetivos del análisis numérico.
+      </p>
+      <p>
+        Aplicado al balance de carga en microservicios, este estudio permite entender
+        que la complejidad del sistema no solo depende de la arquitectura de software,
+        sino también de la forma matemática en que se representa. Por ello, el uso de
+        métodos numéricos adecuados mejora tanto la interpretación del modelo como la
+        capacidad de analizar estabilidad, saturación y eficiencia computacional.
+      </p>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    Página de análisis comparativo y explicación del condicionamiento.
+  </div>
+</footer>
+</body>
+</html>

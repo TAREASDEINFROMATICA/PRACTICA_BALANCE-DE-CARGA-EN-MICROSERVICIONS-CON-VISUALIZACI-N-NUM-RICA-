@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Método de Gauss-Seidel</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body data-page="gauss">
+
+<header>
+  <div class="container">
+    <div class="container">Ronaldo Charca Condori</div>
+    <div class="topbar">
+      <div class="brand">Proyecto de Métodos Numéricos</div>
+      <nav>
+        <a href="index.html">Inicio</a>
+        <a href="lu.html">LU</a>
+        <a href="jacobi.html">Jacobi</a>
+        <a href="gauss-seidel.html">Gauss-Seidel</a>
+        <a href="sor.html">SOR</a>
+        <a href="gradiente.html">Gradiente</a>
+        <a href="comparacion.html">Comparación</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<header>
+  <div class="container hero">
+    <h1>Método de Gauss-Seidel</h1>
+   
+  </div>
+</header>
+<main>
+  <div class="container">
+
+    <section class="card topic-context">
+      <h2 class="section-title">Contexto general del tema</h2>
+      <p><strong>Balance de carga en microservicios mediante métodos numéricos</strong> es el eje central de este proyecto. El propósito del sitio es representar cómo se reparte el tráfico entre tres servicios principales de una arquitectura distribuida: autenticación, catálogo y pagos. Cada variable del sistema lineal representa la carga efectiva de uno de esos microservicios, mientras que la matriz de coeficientes expresa el nivel de dependencia, acoplamiento y transferencia de solicitudes entre ellos. A través de esta formulación matemática se puede estudiar si el sistema es estable, si soporta escenarios de alta presión y si presenta problemas de condicionamiento que compliquen la obtención de una solución confiable.</p>
+      <p>Desde el punto de vista de ingeniería de sistemas, este modelo no solo resuelve ecuaciones: también permite interpretar saturación, rendimiento, sensibilidad numérica y eficiencia computacional. En un caso ideal, los servicios están bien balanceados; en un caso bajo estrés, las llamadas internas y la magnitud de la carga crecen notablemente; y en un caso mal condicionado, dos componentes se vuelven tan parecidos que distinguir sus efectos resulta difícil. Dentro de ese marco, la página actual se centra en <strong>Método de Gauss-Seidel</strong>. Gauss-Seidel mejora la actualización de Jacobi reutilizando valores recién calculados y por eso sirve para analizar si una estrategia iterativa más agresiva reduce el costo computacional.</p>
+    </section>
+    <section class="card">
+      <h2 class="section-title">Contexto del metodo</h2>
+      <div class="grid-2">
+        <div>
+          <p>Gauss-Seidel mejora la idea de Jacobi al incorporar de inmediato los nuevos valores calculados dentro de la misma iteración. Eso significa que, cuando se actualiza una variable, la siguiente ya puede aprovechar ese valor más reciente. En un problema como el balance de carga en microservicios, esto suele traducirse en una convergencia más rápida, especialmente cuando la matriz del sistema es diagonalmente dominante o está razonablemente bien condicionada. Esta página permite comparar esa ventaja visualmente mediante el número de iteraciones, la caída del error y la cercanía final a la solución exacta.</p>
+          <div class="notice">
+            <strong>Variables del sistema:</strong><br>
+            x1 = carga del microservicio de autenticación<br>
+            x2 = carga del microservicio de catálogo<br>
+            x3 = carga del microservicio de pagos<br><br>
+            <strong>Interpretación de b:</strong> demanda neta que debe equilibrarse en cada servicio.
+          </div>
+        </div>
+        <div>
+          <img src="assets/gauss_seidel_ilustracion.svg" alt="Método de Gauss-Seidel" style="width:100%;border-radius:16px;border:1px solid #dbe5ef" />
+          <p class="small">Ilustración del flujo secuencial de actualización en Gauss-Seidel.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="section-title">Caso seleccionado y ecuaciones</h2>
+      <div class="grid-2">
+        <div>
+          <label for="caseSelect">Elegir caso</label>
+          <select id="caseSelect">
+            <option value="ideal">Caso ideal</option>
+            <option value="stress">Caso bajo estrés</option>
+            <option value="mal">Caso mal condicionado</option>
+          </select>
+          <p class="small"><span class="badge case-name">Caso ideal</span></p>
+          <p class="case-intro"></p>
+        </div>
+        <div class="eq-box" id="equations"></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="section-title">Matriz y vector editables</h2>
+      <p class="small">Puedes dejar los valores por defecto del caso o cambiarlos manualmente antes de resolver.</p>
+      <div class="matrix-grid">
+        <input id="a00" type="number" step="any"><input id="a01" type="number" step="any"><input id="a02" type="number" step="any"><input id="b0" type="number" step="any">
+        <br>
+        <input id="a10" type="number" step="any"><input id="a11" type="number" step="any"><input id="a12" type="number" step="any"><input id="b1" type="number" step="any">
+        <br>
+        <input id="a20" type="number" step="any"><input id="a21" type="number" step="any"><input id="a22" type="number" step="any"><input id="b2" type="number" step="any">
+      </div>
+      
+      <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+        <button id="solveBtn">Resolver</button>
+        <button id="fillDefault" class="tab-btn">Restaurar caso</button>
+      </div>
+    </section>
+
+    <section class="grid-2">
+      <div class="card">
+        <h2 class="section-title">Gráfico 1</h2>
+        <div class="canvas-wrap"><canvas id="chart1"></canvas></div>
+      </div>
+      <div class="card">
+        <h2 class="section-title">Gráfico 2</h2>
+        <div class="canvas-wrap"><canvas id="chart2"></canvas></div>
+      </div>
+    </section>
+
+    <section class="card" id="resultsSection">
+      <h2 class="section-title">Resultados</h2>
+      <div id="results"></div>
+      <div id="final-solution"></div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Iteración</th><th>x1</th><th>x2</th><th>x3</th><th>Error</th><th>Residuo</th></tr>
+          </thead>
+          <tbody id="iter-body"></tbody>
+        </table>
+      </div>
+      <div class="result-box" style="margin-top:12px">
+        <strong>Análisis:</strong>
+        <p id="analysis-text"></p>
+      </div>
+      <div class="result-box" style="margin-top:12px">
+        <strong>Conclusión:</strong>
+        <p id="conclusion-text"></p>
+      </div>
+    </section>
+  </div>
+</main>
+<footer><div class="container">Ronaldo Charca Condori</div></footer>
+<script src="app.js"></script>
+</body></html>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650">
+<rect width="1200" height="650" fill="#f8fafc"/>
+<text x="60" y="80" font-size="38" font-family="Arial" fill="#0f172a" font-weight="700">Factorización LU</text>
+<text x="60" y="120" font-size="22" font-family="Arial" fill="#475569">Separación de la matriz A en factores triangulares</text>
+<rect x="80" y="190" width="180" height="220" rx="16" fill="#dbeafe" stroke="#60a5fa" stroke-width="3"/>
+<rect x="330" y="190" width="120" height="220" rx="16" fill="#e2e8f0" stroke="#94a3b8" stroke-width="3"/>
+<rect x="520" y="190" width="180" height="220" rx="16" fill="#dcfce7" stroke="#22c55e" stroke-width="3"/>
+<text x="150" y="315" font-size="70" font-family="Courier New" fill="#1d4ed8" font-weight="700">A</text>
+<text x="365" y="315" font-size="70" font-family="Arial" fill="#334155" font-weight="700">=</text>
+<text x="590" y="315" font-size="70" font-family="Courier New" fill="#15803d" font-weight="700">L</text>
+<text x="745" y="315" font-size="70" font-family="Arial" fill="#334155" font-weight="700">·</text>
+<rect x="820" y="190" width="180" height="220" rx="16" fill="#fef3c7" stroke="#f59e0b" stroke-width="3"/>
+<text x="890" y="315" font-size="70" font-family="Courier New" fill="#b45309" font-weight="700">U</text>
+<text x="90" y="480" font-size="24" font-family="Arial" fill="#334155">Doolittle: diag(L)=1</text>
+<text x="90" y="520" font-size="24" font-family="Arial" fill="#334155">Crout: diag(U)=1</text>
+<text x="90" y="560" font-size="24" font-family="Arial" fill="#334155">Cholesky: A=L·Lᵀ</text>
+<path d="M260 300 C290 300 300 300 330 300" stroke="#60a5fa" stroke-width="6" fill="none"/>
+<path d="M700 300 C760 300 770 300 820 300" stroke="#22c55e" stroke-width="6" fill="none"/>
+</svg>

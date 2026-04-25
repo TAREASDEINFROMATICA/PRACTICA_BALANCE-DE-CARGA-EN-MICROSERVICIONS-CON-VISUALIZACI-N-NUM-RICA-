@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Balance de carga en microservicios</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<header>
+  <div class="container">
+    <div class="container">Ronaldo Charca Condori</div>
+    <div class="topbar">
+      <div class="brand">Proyecto de Métodos Numéricos</div>
+      
+      <nav>
+        <a href="index.html">Inicio</a>
+        <a href="lu.html">LU</a>
+        <a href="jacobi.html">Jacobi</a>
+        <a href="gauss-seidel.html">Gauss-Seidel</a>
+        <a href="sor.html">SOR</a>
+        <a href="gradiente.html">Gradiente</a>
+        <a href="comparacion.html">Comparación</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<header>
+  <div class="container hero">
+    <h1>Balance de carga en microservicios con visualización numérica</h1>
+    </div>
+</header>
+<main>
+  <div class="container">
+    <section class="card">
+      <h2 class="section-title">Vista gráfica del problema</h2>
+      <img src="assets/hero_microservicios.svg" alt="Diagrama general del balance de carga" style="width:100%;border-radius:16px;border:1px solid #dbe5ef" />
+      <p>La imagen resume la arquitectura planteada: las solicitudes externas atraviesan autenticación, luego llegan a catálogo y terminan en pagos, mientras el sistema puede operar en un estado ideal, bajo estrés o mal condicionado. Esta representación visual ayuda a conectar el modelo matemático con una arquitectura informática real.</p>
+    </section>
+    <section class="grid-2">
+      <div class="card">
+        <h2 class="section-title">Qué se modela</h2>
+        <p>Se modela el equilibrio de solicitudes entre tres microservicios. Las variables son <strong>x1</strong> para autenticación, <strong>x2</strong> para catálogo y <strong>x3</strong> para pagos. El vector <strong>b</strong> representa la demanda neta observada. A partir de esto, cada método resuelve el sistema lineal en los tres escenarios del proyecto.</p>
+        <div class="notice">
+          <strong>Escenarios:</strong><br>
+          Caso ideal, caso bajo estrés y caso mal condicionado.
+        </div>
+      </div>
+      <div class="card">
+        <h2 class="section-title">Páginas del proyecto</h2>
+        <div class="method-links">
+          <a href="lu.html">LU <span>Incluye Doolittle, Crout y Cholesky, con imágenes y gráficos.</span></a><br><br>
+          <a href="jacobi.html">Jacobi <span>Iteraciones, convergencia, imagen del esquema y comparación final.</span></a><br><br>
+          <a href="gauss-seidel.html">Gauss-Seidel <span>Actualización secuencial con imagen explicativa.</span></a><br><br>
+          <a href="sor.html">SOR <span>Factor de relajación ω y visual de aceleración del error.</span></a><br><br>
+          <a href="gradiente.html">Gradiente Conjugado Prec. <span>Direcciones conjugadas, precondicionador e imagen geométrica.</span></a>
+          <a href="comparacion.html">Comparación</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+<footer><div class="container">Ronaldo Charca Condori</div></footer>
+</body></html>
